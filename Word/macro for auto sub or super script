@@ -1,0 +1,134 @@
+#This is several macro used in Word for auto sub/superscript
+#Please read the part marked with # and '. It's important for you to read,modify and apply the code for youself
+#请认真阅读#及'部分，涉及到如何阅读代码、修改及应用
+#Before use it, please set the macro in Word first.
+    #open up your Word.
+    #press Alt+F11 to open editor of Visual Basic for Applications
+    #Select folder named Normal/Modules/NewMacros
+    #Put the code(without #) below into Code Window
+    #return to your Word and open you file, make sure you have copied your files before use macro.
+    #Press Alt+F8 to open Macro window
+    #Select your Macro and click Run option
+
+#δ13Corg This macro will automatically set the "13" in "δ13Corg" into superscript and set the "org" in "δ13Corg" into subscript
+Sub d13Corg()
+    Dim rng As Range
+    Dim searchStr As String
+    Dim replaceStr As String
+    Dim startPos As Long
+    Dim endPos As Long
+    
+    'set the String you want to search and replace
+    searchStr = "δ13Corg"
+    replaceStr = "δ13Corg"
+    
+    'set the range for searching and replacing
+    Set rng = ActiveDocument.Range
+    
+    'start searching and replacing
+    With rng.Find
+        .ClearFormatting
+        .Text = searchStr
+        .MatchWholeWord = True
+        
+        Do While .Execute
+            startPos = rng.Start
+            endPos = rng.End
+            
+            'modify 13 into Superscript
+                'rng.Start means where rng starts,startPos means where to starts with
+                'rng.End means where rng ends, endPos means where it ends.
+            rng.Start = startPos + 1
+            rng.End = startPos + 3
+            rng.Font.Superscript = True
+            
+            'modify org into Subscript
+            rng.Start = startPos + 4
+            rng.End = endPos
+            rng.Font.Subscript = True
+            
+            'reset search and replacing range
+            rng.Start = startPos
+            rng.End = endPos
+        Loop
+    End With
+End Sub
+
+#δ13Corg macro ends, you can simply change the string to set your range, change the rng.Start and rng.End to select the number or letter you want to change.
+
+#there are two more paragraph codes for example.
+#macro for CO2 subscript
+Sub CO2()
+    Dim rng As Range
+    Dim searchStr As String
+    Dim replaceStr As String
+    Dim startPos As Long
+    Dim endPos As Long
+    
+    ' 设置要查找和替换的字符串
+    searchStr = "CO2"
+    replaceStr = "CO2"
+    
+    ' 设置查找范围
+    Set rng = ActiveDocument.Range
+    
+    ' 开始查找和修改
+    With rng.Find
+        .ClearFormatting
+        .Text = searchStr
+        .MatchWholeWord = True
+        
+        Do While .Execute
+            startPos = rng.Start
+            endPos = rng.End
+                        
+            ' 将2修改为下标
+            rng.Start = startPos + 2
+            rng.End = endPos
+            rng.Font.Subscript = True
+            
+            ' 还原查找范围
+            rng.Start = startPos
+            rng.End = endPos
+        Loop
+    End With
+End Sub
+#CO2 macro ends
+
+#macro for 18O superscript
+Sub δ18O()
+    Dim rng As Range
+    Dim searchStr As String
+    Dim replaceStr As String
+    Dim startPos As Long
+    Dim endPos As Long
+    
+    ' 设置要查找和替换的字符串
+    searchStr = "δ18O"
+    replaceStr = "δ18O"
+    
+    ' 设置查找范围
+    Set rng = ActiveDocument.Range
+    
+    ' 开始查找和修改
+    With rng.Find
+        .ClearFormatting
+        .Text = searchStr
+        .MatchWholeWord = True
+        
+        Do While .Execute
+            startPos = rng.Start
+            endPos = rng.End
+            
+            ' 将18修改为上标
+            rng.Start = startPos + 1
+            rng.End = startPos + 3
+            rng.Font.Superscript = True
+            
+            ' 还原查找范围
+            rng.Start = startPos
+            rng.End = endPos
+        Loop
+    End With
+End Sub
+#macro for 18O end
